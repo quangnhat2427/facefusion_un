@@ -1,7 +1,7 @@
 FaceFusion
 ==========
 
-> Next generation face swapper and enhancer.
+> Next generation face swapper and enhancer. Without any NSFW filtering or blocks
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/facefusion/facefusion/ci.yml.svg?branch=master)](https://github.com/facefusion/facefusion/actions?query=workflow:ci)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -16,7 +16,7 @@ Preview
 Installation
 ------------
 
-Be aware, the installation needs technical skills and is not for beginners. Please do not open platform and installation related issues on GitHub. We have a very helpful [Discord](https://join.facefusion.io) community that will guide you to complete the installation.
+Be aware, the installation needs technical skills and is not for beginners. Please do not open platform and installation related issues on GitHub. We have a very helpful [Discord]([https://join.facefusion.io](https://discord.gg/x9naV33rrU)) NSFW where you can share results.
 
 Get started with the [installation](https://docs.facefusion.io/installation) guide.
 
@@ -45,10 +45,7 @@ execution:
   --execution-providers EXECUTION_PROVIDERS [EXECUTION_PROVIDERS ...]                                                choose from the available execution providers (choices: cpu, ...)
   --execution-thread-count [1-128]                                                                                   specify the number of execution threads
   --execution-queue-count [1-32]                                                                                     specify the number of execution queries
-
-memory:
-  --video-memory-strategy {strict,moderate,tolerant}                                                                 specify strategy to handle the video memory
-  --system-memory-limit [0-128]                                                                                      specify the amount (gb) of system memory to be used
+  --max-memory [0-128]                                                                                               specify the maximum amount of ram to be used (in gb)
 
 face analyser:
   --face-analyser-order {left-right,right-left,top-bottom,bottom-top,small-large,large-small,best-worst,worst-best}  specify the order used for the face analyser
@@ -73,17 +70,15 @@ face mask:
 frame extraction:
   --trim-frame-start TRIM_FRAME_START                                                                                specify the start frame for extraction
   --trim-frame-end TRIM_FRAME_END                                                                                    specify the end frame for extraction
-  --temp-frame-format {jpg,png,bmp}                                                                                  specify the image format used for frame extraction
+  --temp-frame-format {jpg,png}                                                                                      specify the image format used for frame extraction
   --temp-frame-quality [0-100]                                                                                       specify the image quality used for frame extraction
   --keep-temp                                                                                                        retain temporary frames after processing
 
 output creation:
   --output-image-quality [0-100]                                                                                     specify the quality used for the output image
   --output-video-encoder {libx264,libx265,libvpx-vp9,h264_nvenc,hevc_nvenc}                                          specify the encoder used for the output video
-  --output-video-preset {ultrafast,superfast,veryfast,faster,fast,medium,slow,slower,veryslow}                       specify the preset used for the output video
   --output-video-quality [0-100]                                                                                     specify the quality used for the output video
-  --output-video-resolution OUTPUT_VIDEO_RESOLUTION                                                                  specify the resolution used for the output video
-  --output-video-fps OUTPUT_VIDEO_FPS                                                                                specify the frames per second (fps) used for the output video
+  --keep-fps                                                                                                         preserve the frames per second (fps) of the target
   --skip-audio                                                                                                       omit audio from the target
 
 frame processors:

@@ -20,7 +20,7 @@ def render() -> None:
 	)
 	BENCHMARK_CYCLES_SLIDER = gradio.Slider(
 		label = wording.get('benchmark_cycles_slider_label'),
-		value = 5,
+		value = 3,
 		step = 1,
 		minimum = 1,
 		maximum = 10

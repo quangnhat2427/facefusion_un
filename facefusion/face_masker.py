@@ -8,7 +8,6 @@ import onnxruntime
 
 import facefusion.globals
 from facefusion.typing import Frame, Mask, Padding, FaceMaskRegion, ModelSet
-from facefusion.execution_helper import apply_execution_provider_options
 from facefusion.filesystem import resolve_relative_path
 from facefusion.download import conditional_download
 
@@ -49,7 +48,7 @@ def get_face_occluder() -> Any:
 	with THREAD_LOCK:
 		if FACE_OCCLUDER is None:
 			model_path = MODELS.get('face_occluder').get('path')
-			FACE_OCCLUDER = onnxruntime.InferenceSession(model_path, providers = apply_execution_provider_options(facefusion.globals.execution_providers))
+			FACE_OCCLUDER = onnxruntime.InferenceSession(model_path, providers = facefusion.globals.execution_providers)
 	return FACE_OCCLUDER
 
 
@@ -59,7 +58,7 @@ def get_face_parser() -> Any:
 	with THREAD_LOCK:
 		if FACE_PARSER is None:
 			model_path = MODELS.get('face_parser').get('path')
-			FACE_PARSER = onnxruntime.InferenceSession(model_path, providers = apply_execution_provider_options(facefusion.globals.execution_providers))
+			FACE_PARSER = onnxruntime.InferenceSession(model_path, providers = facefusion.globals.execution_providers)
 	return FACE_PARSER
 
 

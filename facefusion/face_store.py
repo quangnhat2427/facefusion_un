@@ -1,6 +1,5 @@
 from typing import Optional, List
 import hashlib
-import numpy
 
 from facefusion.typing import Frame, Face, FaceStore, FaceSet
 
@@ -28,8 +27,8 @@ def clear_static_faces() -> None:
 	FACE_STORE['static_faces'] = {}
 
 
-def create_frame_hash(frame : Frame) -> Optional[str]:
-	return hashlib.sha1(frame.tobytes()).hexdigest() if numpy.any(frame) else None
+def create_frame_hash(frame: Frame) -> Optional[str]:
+	return hashlib.sha1(frame.tobytes()).hexdigest() if frame.any() else None
 
 
 def get_reference_faces() -> Optional[FaceSet]:

@@ -43,17 +43,31 @@ def listen() -> None:
 	if output_path_textbox:
 		OUTPUT_START_BUTTON.click(start, inputs = output_path_textbox, outputs = [ OUTPUT_IMAGE, OUTPUT_VIDEO ])
 	OUTPUT_CLEAR_BUTTON.click(clear, outputs = [ OUTPUT_IMAGE, OUTPUT_VIDEO ])
+import os
 
+def start(output_path: str) -> Tuple[gradio.Image, gradio.Video]:
+    output_path = "/content/out"
+    output_directory = "/content/output"
+    absolute_directory = os.path.abspath(output_directory)
 
-def start(output_path : str) -> Tuple[gradio.Image, gradio.Video]:
-	facefusion.globals.output_path = normalize_output_path(facefusion.globals.source_paths, facefusion.globals.target_path, output_path)
-	limit_resources()
-	conditional_process()
-	if is_image(facefusion.globals.output_path):
-		return gradio.Image(value = facefusion.globals.output_path, visible = True), gradio.Video(value = None, visible = False)
-	if is_video(facefusion.globals.output_path):
-		return gradio.Image(value = None, visible = False), gradio.Video(value = facefusion.globals.output_path, visible = True)
-	return gradio.Image(), gradio.Video()
+    file_paths = []
+    for filename in os.listdir(output_directory):
+        file_path = os.path.join(absolute_directory, filename)
+        file_paths.append(file_path)
+
+    for file_path in file_paths:
+        facefusion.globals.target_path = file_path
+        facefusion.globals.output_path = normalize_output_path(facefusion.globals.source_paths, file_path, output_path)
+        limit_resources()
+        conditional_process()
+    # Thực hiện những gì bạn cần làm với mỗi file_path ở đây
+    folder_path = facefusion.globals.output_path
+    print(folder_path)
+    if is_image(facefusion.globals.output_path):
+        return gradio.Image(value=facefusion.globals.output_path, visible=True), gradio.Video(value=None, visible=False)
+    if is_video(facefusion.globals.output_path):
+        return gradio.Image(value=None, visible=False), gradio.Video(value=facefusion.globals.output_path, visible=True)
+    return gradio.Image(), gradio.Video()
 
 
 def clear() -> Tuple[gradio.Image, gradio.Video]:
